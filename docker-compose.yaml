@@ -1,0 +1,14 @@
+# need to add env files and look at localhost mapping
+services:
+  setlist-frontend:
+    build: .
+    ports:
+      - 5000:5000
+  setlist-generator:
+    build: ../setlist-generator/.
+    ports:
+      - 8080:8080
+  setlist-fm-layer:
+    build: ../setlist-fm-layer/.
+    ports:
+      - 3000:3000
