@@ -7,9 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lewis Jones",
-  "license": "ISC",
-  "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-browserify": "^0.5.1"
-  }
+  "license": "ISC"
 }
