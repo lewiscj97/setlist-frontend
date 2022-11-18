@@ -62,9 +62,8 @@ function displaySetlists(setlists) {
 
 function initGetSetlistCallback(artistElem) {
   artistElem.addEventListener('click', async () => {
-    const setlists = await getSetlists(artistElem.id);
     clearContentsOfElemWithId('setlist-results');
-    displaySetlists(setlists);
+    displaySetlists(await getSetlists(artistElem.id));
   });
 }
 
@@ -77,9 +76,7 @@ async function displayArtistSearchResults(searchResults) {
     const artistList = createArtistElems(searchResults);
     artistList.forEach((artist) => {
       responseContainer.appendChild(artist);
-    });
-    artistList.forEach((artistElem) => {
-      initGetSetlistCallback(artistElem);
+      initGetSetlistCallback(artist);
     });
   }
 }

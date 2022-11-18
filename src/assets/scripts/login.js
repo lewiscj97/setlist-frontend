@@ -7,6 +7,7 @@ function storeLoginDetails() {
       accessToken: splitUrl[1],
     };
     localStorage.setItem('setlist-generator-details', JSON.stringify(details));
+    window.location = '/';
   }
 }
 
