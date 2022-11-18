@@ -1,5 +1,3 @@
-const { initLoginButton } = require('./login');
-
 document.addEventListener('DOMContentLoaded', async () => {
-  initLoginButton();
+  console.log('Script loaded');
 });
