@@ -13,6 +13,10 @@ function storeLoginDetails() {
 function hideLoginSectionIfLoggedIn() {
   if (localStorage.getItem('setlist-generator-details') !== null) {
     document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('logged-in').classList.remove('hidden');
+    document.getElementById('username').innerText = JSON.parse(localStorage.getItem(
+      'setlist-generator-details',
+    )).displayName;
   }
 }
 

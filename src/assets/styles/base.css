@@ -7,10 +7,15 @@ h1, h2, h3, p, span {
   font-family: Roboto, sans-serif;
 }
 
-.container {
-  display: flex;
-}
-
 .hidden {
   display: none;
+}
+
+#logged-in {
+  margin-top: 3rem;
+}
+
+#artist-search-btn {
+  display: block;
+  margin-top: 0.5rem;
 }
