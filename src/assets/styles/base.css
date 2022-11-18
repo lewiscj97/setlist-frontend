@@ -19,3 +19,17 @@ h1, h2, h3, p, span {
   display: block;
   margin-top: 0.5rem;
 }
+
+#artist-results {
+  margin-top: 3rem;
+}
+
+.link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

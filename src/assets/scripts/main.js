@@ -4,5 +4,5 @@ const { searchArtist } = require('./artistSearch');
 document.addEventListener('DOMContentLoaded', async () => {
   storeLoginDetails();
   hideLoginSectionIfLoggedIn();
-  searchArtist();
+  await searchArtist();
 });
