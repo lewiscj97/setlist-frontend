@@ -12,6 +12,8 @@
   "author": "Lewis Jones",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "watchify": "^4.0.0"
   },
   "dependencies": {
