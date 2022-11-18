@@ -33,3 +33,19 @@ h1, h2, h3, p, span {
   color: #0056b3;
   text-decoration: underline;
 }
+
+#setlist-results {
+  margin-top: 3rem;
+}
+
+.artist-setlist-container {
+  display: flex;
+  flex-direction: row;
+  border: 2px green solid;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  align-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+}

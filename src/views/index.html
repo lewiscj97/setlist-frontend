@@ -19,9 +19,12 @@
   <h1 class="display-4">Spotify Setlist Generator</h1>
   <p class="lead">Create playlists of an artists setlist in a few clicks.</p>
   <hr class="my-4">
-  <p>Powered by <a href="https://www.spotify.com/uk/">Spotify</a>, <a href="https://www.setlist.fm/">Setlist.fm</a>, and <a href="https://musicbrainz.org/">MusicBrainz</a>.</p>
+  <p>Powered by <a href="https://www.spotify.com/uk/">Spotify</a>, <a
+    href="https://www.setlist.fm/">Setlist.fm</a>, and <a href="https://musicbrainz.org/">MusicBrainz</a>.
+  </p>
   <p class="lead" id="login-section">
-    <a href="http://localhost:8080/login" class="btn btn-success btn-lg" id="login-button" role="button">Connect to Spotify</a>
+    <a href="http://localhost:8080/login" class="btn btn-success btn-lg" id="login-button"
+       role="button">Connect to Spotify</a>
   </p>
   <div id="logged-in" class="hidden">
     <h2>Hey, <span id="username"></span>!</h2>
@@ -30,9 +33,8 @@
       <input type="text" name="artist" id="artist">
       <button class="btn btn-primary" id="artist-search-btn">Go!</button>
     </div>
-    <div id="artist-results">
-
-    </div>
+    <div id="artist-results"></div>
+    <div id="setlist-results"></div>
   </div>
 </div>
 </body>
