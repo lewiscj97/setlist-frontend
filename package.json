@@ -4,8 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "browserify": "browserify src/assets/scripts/main.js > src/assets/scripts/bundle.js",
+    "build": "npm run",
+    "dev": "watchify src/assets/scripts/main.js -o src/assets/scripts/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lewis Jones",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "watchify": "^4.0.0"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0"
+  }
 }

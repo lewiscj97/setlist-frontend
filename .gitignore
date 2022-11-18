@@ -1,3 +1,4 @@
 /.idea/
 /setlist-frontend.iml
 /node_modules/
+src/assets/scripts/bundle.js
