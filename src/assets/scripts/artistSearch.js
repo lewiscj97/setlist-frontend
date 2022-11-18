@@ -29,6 +29,51 @@ async function getSetlists(artistId) {
   return artistSetlists.json();
 }
 
+function createRequest(songsObject) {
+  const {
+    artistId, name, songs, eventDate, venueName,
+  } = songsObject;
+  const { displayName, accessToken } = JSON.parse(localStorage.getItem('setlist-generator-details'));
+  return {
+    artistId,
+    name,
+    songs,
+    eventDate,
+    venueName,
+    accessToken,
+    userId: displayName,
+  };
+}
+
+async function sendGeneratePlaylistRequest(songs) {
+  const request = createRequest(songs);
+  const response = await fetch('http://localhost:8080/generate', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(request),
+    mode: 'cors',
+  });
+  if (response.status === 200) {
+    const setlistSongContainer = document.getElementById('setlist-songs-container');
+    clearContentsOfElemWithId('setlist-songs-container');
+    const { name, url } = await response.json();
+    const messageElem = createElem('span', null, `Success! Playlist ${name} is available at: `);
+    const urlElem = createElem('a', null, url);
+    urlElem.href = url;
+    messageElem.appendChild(urlElem);
+    setlistSongContainer.appendChild(messageElem);
+    const newPlaylistButton = createElem('a', 'new-playlist', 'Create new playlist', 'btn', 'btn-secondary', 'display-block');
+    newPlaylistButton.addEventListener('click', () => {
+      window.location.reload();
+    });
+    setlistSongContainer.appendChild(newPlaylistButton);
+  } else {
+    console.log(await response.error());
+  }
+}
+
 async function getSetlistSongs(id) {
   const artistSetlistContainer = document.getElementById('search-artist-setlists-container');
   const setlistSongContainer = document.getElementById('setlist-songs-container');
@@ -44,6 +89,9 @@ async function getSetlistSongs(id) {
     songListContainer.appendChild(songElem);
   });
   const submitButton = createElem('button', 'generate-playlist-button', 'Create playlist', 'btn', 'btn-success');
+  submitButton.addEventListener('click', async () => {
+    await sendGeneratePlaylistRequest(songsJson);
+  });
   setlistSongContainer.appendChild(songListContainer);
   setlistSongContainer.appendChild(submitButton);
 }

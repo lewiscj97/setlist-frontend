@@ -49,3 +49,7 @@ h1, h2, h3, p, span {
   align-items: center;
   justify-content: space-between;
 }
+
+.display-block {
+  display: block;
+}
