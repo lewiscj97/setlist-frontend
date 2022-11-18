@@ -29,6 +29,25 @@ async function getSetlists(artistId) {
   return artistSetlists.json();
 }
 
+async function getSetlistSongs(id) {
+  const artistSetlistContainer = document.getElementById('search-artist-setlists-container');
+  const setlistSongContainer = document.getElementById('setlist-songs-container');
+  const response = await fetch(`http://localhost:3000/setlist/${id}`);
+  const songsJson = await response.json();
+  artistSetlistContainer.classList.add('hidden');
+  const { songs } = songsJson;
+  const songListContainer = createElem('ol', null, null, 'list-group', 'list-group-numbered');
+  const heading = createElem('h3', null, 'Your playlist:');
+  songListContainer.appendChild(heading);
+  songs.forEach((song) => {
+    const songElem = createElem('li', null, song, 'list-group-item');
+    songListContainer.appendChild(songElem);
+  });
+  const submitButton = createElem('button', 'generate-playlist-button', 'Create playlist', 'btn', 'btn-success');
+  setlistSongContainer.appendChild(songListContainer);
+  setlistSongContainer.appendChild(submitButton);
+}
+
 function createSetlistElem(setlistInfo) {
   const setlistDiv = createElem('div', null, null, 'artist-setlist-container');
   const detailsContainer = document.createElement('div');
@@ -46,6 +65,9 @@ function createSetlistElem(setlistInfo) {
   setlistDiv.appendChild(detailsContainer);
   const selectContainer = document.createElement('div');
   const selectButton = createElem('button', id, 'Select', 'btn', 'btn-primary');
+  selectButton.addEventListener('click', async () => {
+    await getSetlistSongs(id);
+  });
   selectContainer.appendChild(selectButton);
   setlistDiv.appendChild(selectContainer);
   return setlistDiv;

@@ -28,13 +28,16 @@
   </p>
   <div id="logged-in" class="hidden">
     <h2>Hey, <span id="username"></span>!</h2>
-    <div id="search-container">
-      <label for="artist">Search for an artist:</label><br>
-      <input type="text" name="artist" id="artist">
-      <button class="btn btn-primary" id="artist-search-btn">Go!</button>
+    <div id="search-artist-setlists-container">
+      <div id="search-container">
+        <label for="artist">Search for an artist:</label><br>
+        <input type="text" name="artist" id="artist">
+        <button class="btn btn-primary" id="artist-search-btn">Go!</button>
+      </div>
+      <div id="artist-results"></div>
+      <div id="setlist-results"></div>
     </div>
-    <div id="artist-results"></div>
-    <div id="setlist-results"></div>
+    <div id="setlist-songs-container"></div>
   </div>
 </div>
 </body>
