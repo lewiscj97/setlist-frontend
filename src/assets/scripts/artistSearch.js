@@ -1,78 +1,98 @@
-async function searchArtist() {
+const { createElem, clearContentsOfElemWithId } = require('./utils');
+
+async function getArtists(searchQuery) {
+  const request = { artist: searchQuery };
+  const response = await fetch('http://localhost:3000/artist/search', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(request),
+    mode: 'cors',
+  });
+  return response.json();
+}
+
+function createArtistElems(artists) {
+  const artistList = [];
+  artists.forEach((artist) => {
+    const elem = document.createElement('div');
+    const artistName = createElem('p', artist.id, artist.name, 'artist-search', 'link');
+    elem.appendChild(artistName);
+    artistList.push(artistName);
+  });
+  return artistList;
+}
+
+async function getSetlists(artistId) {
+  const artistSetlists = await fetch(`http://localhost:3000/artist/${artistId}/setlists`);
+  return artistSetlists.json();
+}
+
+function createSetlistElem(setlistInfo) {
+  const setlistDiv = createElem('div', null, null, 'artist-setlist-container');
+  const detailsContainer = document.createElement('div');
+  const {
+    eventDate, venueName, tourName, id,
+  } = setlistInfo;
+  const dateElem = createElem('p', null, eventDate);
+  const venueElem = createElem('p', null, venueName);
+  detailsContainer.appendChild(dateElem);
+  detailsContainer.appendChild(venueElem);
+  if (tourName) {
+    const tourElem = createElem('p', null, tourName);
+    detailsContainer.appendChild(tourElem);
+  }
+  setlistDiv.appendChild(detailsContainer);
+  const selectContainer = document.createElement('div');
+  const selectButton = createElem('button', id, 'Select', 'btn', 'btn-primary');
+  selectContainer.appendChild(selectButton);
+  setlistDiv.appendChild(selectContainer);
+  return setlistDiv;
+}
+
+function displaySetlists(setlists) {
+  const setlistContainer = document.getElementById('setlist-results');
+  const setlistsHeading = createElem('h3', null, 'Setlist results:');
+  setlistContainer.appendChild(setlistsHeading);
+  setlists.forEach((setlist) => {
+    setlistContainer.appendChild(createSetlistElem(setlist));
+  });
+}
+
+function initGetSetlistCallback(artistElem) {
+  artistElem.addEventListener('click', async () => {
+    const setlists = await getSetlists(artistElem.id);
+    clearContentsOfElemWithId('setlist-results');
+    displaySetlists(setlists);
+  });
+}
+
+async function displayArtistSearchResults(searchResults) {
+  if (searchResults.length > 0) {
+    clearContentsOfElemWithId('artist-results', 'setlist-results');
+    const responseContainer = document.getElementById('artist-results');
+    const headingElem = createElem('h3', null, 'Search results:');
+    responseContainer.appendChild(headingElem);
+    const artistList = createArtistElems(searchResults);
+    artistList.forEach((artist) => {
+      responseContainer.appendChild(artist);
+    });
+    artistList.forEach((artistElem) => {
+      initGetSetlistCallback(artistElem);
+    });
+  }
+}
+
+async function initSearch() {
   const button = document.getElementById('artist-search-btn');
   button.addEventListener('click', async () => {
     const artistQuery = document.getElementById('artist').value;
-    const request = { artist: artistQuery };
-    const response = await fetch('http://localhost:3000/artist/search', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify(request),
-      mode: 'cors',
-    });
-    const responseJson = await response.json();
-    if (responseJson.length > 0) {
-      const responseContainer = document.getElementById('artist-results');
-      const setlistContainer = document.getElementById('setlist-results');
-      responseContainer.innerHTML = '';
-      setlistContainer.innerHTML = '';
-      const headingElem = document.createElement('h3');
-      headingElem.innerText = 'Search Results:';
-      responseContainer.appendChild(headingElem);
-      const artists = [];
-      responseJson.forEach((artist) => {
-        const elem = document.createElement('div');
-        const artistName = document.createElement('p');
-        artistName.innerText = artist.name;
-        artistName.classList.add('artist-search');
-        artistName.classList.add('link');
-        artistName.id = artist.id;
-        elem.appendChild(artistName);
-        artists.push(artistName);
-        responseContainer.appendChild(elem);
-      });
-      artists.forEach((artistElem) => {
-        artistElem.addEventListener('click', async () => {
-          const artistSetlists = await fetch(`http://localhost:3000/artist/${artistElem.id}/setlists`);
-          const artistSetlistsJson = await artistSetlists.json();
-          setlistContainer.innerHTML = '';
-          const setlistsHeading = document.createElement('h3');
-          setlistsHeading.innerText = 'Setlist Results:';
-          artistSetlistsJson.forEach((setlist) => {
-            const setlistDiv = document.createElement('div');
-            setlistDiv.classList.add('artist-setlist-container');
-            const detailsContainer = document.createElement('div');
-            const date = setlist.eventDate;
-            const venue = setlist.venueName;
-            const tour = setlist?.tourName;
-            const dateElem = document.createElement('p');
-            dateElem.innerText = date;
-            const venueElem = document.createElement('p');
-            venueElem.innerText = venue;
-            detailsContainer.appendChild(dateElem);
-            detailsContainer.appendChild(venueElem);
-            if (tour) {
-              const tourElem = document.createElement('p');
-              tourElem.innerText = tour;
-              detailsContainer.appendChild(tourElem);
-            }
-            setlistDiv.appendChild(detailsContainer);
-            const selectContainer = document.createElement('div');
-            const selectButton = document.createElement('button');
-            selectButton.id = setlist.id;
-            selectButton.innerText = 'Select';
-            selectButton.classList.add('btn', 'btn-primary');
-            selectContainer.appendChild(selectButton);
-            setlistDiv.appendChild(selectContainer);
-            setlistContainer.appendChild(setlistDiv);
-          });
-        });
-      });
-    }
+    const artists = await getArtists(artistQuery);
+    await displayArtistSearchResults(artists);
   });
 }
 
 module.exports = {
-  searchArtist,
+  initSearch,
 };

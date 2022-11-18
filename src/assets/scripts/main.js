@@ -1,8 +1,8 @@
 const { storeLoginDetails, hideLoginSectionIfLoggedIn } = require('./login');
-const { searchArtist } = require('./artistSearch');
+const { initSearch } = require('./artistSearch');
 
 document.addEventListener('DOMContentLoaded', async () => {
   storeLoginDetails();
   hideLoginSectionIfLoggedIn();
-  await searchArtist();
+  await initSearch();
 });
