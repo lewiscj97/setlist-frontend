@@ -1,3 +1,6 @@
+const { storeLoginDetails, hideLoginSectionIfLoggedIn } = require('./login');
+
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('Script loaded');
+  storeLoginDetails();
+  hideLoginSectionIfLoggedIn();
 });
