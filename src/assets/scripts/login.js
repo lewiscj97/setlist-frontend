@@ -1,3 +1,4 @@
+// TODO: rename display name and id to be correct
 function storeLoginDetails() {
   const url = window.location.hash.substring(1);
   if (url !== '') {
@@ -5,6 +6,7 @@ function storeLoginDetails() {
     const details = {
       displayName: splitUrl[0],
       accessToken: splitUrl[1],
+      id: splitUrl[2],
     };
     localStorage.setItem('setlist-generator-details', JSON.stringify(details));
     window.location = '/';
@@ -17,7 +19,7 @@ function hideLoginSectionIfLoggedIn() {
     document.getElementById('logged-in').classList.remove('hidden');
     document.getElementById('username').innerText = JSON.parse(localStorage.getItem(
       'setlist-generator-details',
-    )).displayName;
+    )).id;
   }
 }
 
