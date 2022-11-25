@@ -62,8 +62,8 @@ async function sendGeneratePlaylistRequest(songs) {
     const setlistSongContainer = document.getElementById('setlist-songs-container');
     clearContentsOfElemWithId('setlist-songs-container');
     const { name, url } = await response.json();
-    const messageElem = createElem('span', null, `Success! Playlist ${name} is available at: `);
-    const urlElem = createElem('a', null, url);
+    const messageElem = createElem('span', null, `Success! Playlist ${name} is available `);
+    const urlElem = createElem('a', null, 'here');
     urlElem.href = url;
     messageElem.appendChild(urlElem);
     setlistSongContainer.appendChild(messageElem);
@@ -91,7 +91,7 @@ async function getSetlistSongs(id) {
     const songElem = createElem('li', null, song, 'list-group-item');
     songListContainer.appendChild(songElem);
   });
-  const submitButton = createElem('button', 'generate-playlist-button', 'Create playlist', 'btn', 'btn-success');
+  const submitButton = createElem('button', 'generate-playlist-button', 'Create playlist', 'btn', 'btn-success', 'display-block');
   submitButton.addEventListener('click', async () => {
     await sendGeneratePlaylistRequest(songsJson);
   });
