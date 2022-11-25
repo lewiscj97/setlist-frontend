@@ -1,4 +1,7 @@
+const dotenv = require('dotenv');
 const { createElem, clearContentsOfElemWithId } = require('./utils');
+
+dotenv.config();
 
 const setlistFmUri = process.env.SETLIST_FM_URI || 'http://localhost:3000';
 const generateUri = process.env.GENERATE_URI || 'http://localhost:8080';
@@ -58,6 +61,7 @@ async function sendGeneratePlaylistRequest(songs) {
     body: JSON.stringify(request),
     mode: 'cors',
   });
+  console.log(response);
   if (response.status === 200) {
     const setlistSongContainer = document.getElementById('setlist-songs-container');
     clearContentsOfElemWithId('setlist-songs-container');
