@@ -1,8 +1,11 @@
 const { createElem, clearContentsOfElemWithId } = require('./utils');
 
+const setlistFmUri = process.env.SETLIST_FM_URI || 'http://localhost:3000';
+const generateUri = process.env.GENERATE_URI || 'http://localhost:8080';
+
 async function getArtists(searchQuery) {
   const request = { artist: searchQuery };
-  const response = await fetch('http://localhost:3000/artist/search', {
+  const response = await fetch(`${setlistFmUri}/artist/search`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -25,7 +28,7 @@ function createArtistElems(artists) {
 }
 
 async function getSetlists(artistId) {
-  const artistSetlists = await fetch(`http://localhost:3000/artist/${artistId}/setlists`);
+  const artistSetlists = await fetch(`${setlistFmUri}/artist/${artistId}/setlists`);
   return artistSetlists.json();
 }
 
@@ -47,7 +50,7 @@ function createRequest(songsObject) {
 
 async function sendGeneratePlaylistRequest(songs) {
   const request = createRequest(songs);
-  const response = await fetch('http://localhost:8080/generate', {
+  const response = await fetch(`${generateUri}/generate`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -77,7 +80,7 @@ async function sendGeneratePlaylistRequest(songs) {
 async function getSetlistSongs(id) {
   const artistSetlistContainer = document.getElementById('search-artist-setlists-container');
   const setlistSongContainer = document.getElementById('setlist-songs-container');
-  const response = await fetch(`http://localhost:3000/setlist/${id}`);
+  const response = await fetch(`${setlistFmUri}/setlist/${id}`);
   const songsJson = await response.json();
   artistSetlistContainer.classList.add('hidden');
   const { songs } = songsJson;
