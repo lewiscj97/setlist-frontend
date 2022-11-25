@@ -73,7 +73,7 @@ async function sendGeneratePlaylistRequest(songs) {
     });
     setlistSongContainer.appendChild(newPlaylistButton);
   } else {
-    console.log(await response.json());
+    console.log(await response.body);
   }
 }
 
