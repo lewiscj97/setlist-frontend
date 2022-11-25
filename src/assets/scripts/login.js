@@ -1,3 +1,10 @@
+function setLoginHref() {
+  const loginButton = document.getElementById('login-button');
+  if (process.env.GENERATE_URI) {
+    loginButton.href = `${process.env.GENERATE_URI}/login`;
+  }
+}
+
 function storeLoginDetails() {
   const url = window.location.hash.substring(1);
   if (url !== '') {
@@ -24,4 +31,5 @@ function hideLoginSectionIfLoggedIn() {
 module.exports = {
   storeLoginDetails,
   hideLoginSectionIfLoggedIn,
+  setLoginHref,
 };
