@@ -1,10 +1,7 @@
-const dotenv = require('dotenv');
 const { createElem, clearContentsOfElemWithId } = require('./utils');
 
-dotenv.config();
-
-const setlistFmUri = process.env.SETLIST_FM_URI || 'http://localhost:3000';
-const generateUri = process.env.GENERATE_URI || 'http://localhost:8080';
+const setlistFmUri = 'https://setlist-fm-layer.onrender.com';
+const generateUri = 'https://setlist-generator.onrender.com';
 
 async function getArtists(searchQuery) {
   const request = { artist: searchQuery };
