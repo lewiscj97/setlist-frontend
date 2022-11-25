@@ -58,7 +58,6 @@ async function sendGeneratePlaylistRequest(songs) {
     body: JSON.stringify(request),
     mode: 'cors',
   });
-  console.log(response);
   if (response.status === 200) {
     const setlistSongContainer = document.getElementById('setlist-songs-container');
     clearContentsOfElemWithId('setlist-songs-container');
@@ -74,7 +73,7 @@ async function sendGeneratePlaylistRequest(songs) {
     });
     setlistSongContainer.appendChild(newPlaylistButton);
   } else {
-    console.log(await response.error());
+    console.log(await response.json());
   }
 }
 
