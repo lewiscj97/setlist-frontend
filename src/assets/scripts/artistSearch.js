@@ -17,7 +17,7 @@ function createArtistElems(artists) {
   const artistList = [];
   artists.forEach((artist) => {
     const elem = document.createElement('div');
-    const artistName = createElem('p', artist.id, artist.name, 'artist-search', 'link');
+    const artistName = createElem('p', artist.id, artist.name, 'artist-search', 'link', 'list-group-item');
     elem.appendChild(artistName);
     artistList.push(artistName);
   });
@@ -143,11 +143,13 @@ async function displayArtistSearchResults(searchResults) {
     const responseContainer = document.getElementById('artist-results');
     const headingElem = createElem('h3', null, 'Search results:');
     responseContainer.appendChild(headingElem);
+    const artistContainer = createElem('div', 'artist-container', null, 'margin-top');
     const artistList = createArtistElems(searchResults);
     artistList.forEach((artist) => {
-      responseContainer.appendChild(artist);
+      artistContainer.appendChild(artist);
       initGetSetlistCallback(artist);
     });
+    responseContainer.appendChild(artistContainer);
   }
 }
 
