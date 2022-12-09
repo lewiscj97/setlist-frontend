@@ -24,7 +24,16 @@ function hideLoginSectionIfLoggedIn() {
   }
 }
 
+function initLogoutButton() {
+  const button = document.getElementById('logout-button');
+  button.addEventListener('click', () => {
+    localStorage.removeItem('setlist-generator-details');
+    window.location = '/';
+  });
+}
+
 module.exports = {
   storeLoginDetails,
   hideLoginSectionIfLoggedIn,
+  initLogoutButton,
 };
