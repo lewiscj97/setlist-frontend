@@ -7,6 +7,7 @@ function storeLoginDetails() {
       displayName: splitUrl[0],
       accessToken: splitUrl[1],
       id: splitUrl[2],
+      refreshToken: splitUrl[3],
     };
     localStorage.setItem('setlist-generator-details', JSON.stringify(details));
     window.location = '/';
