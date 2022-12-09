@@ -36,7 +36,7 @@ function createRequest(songsObject) {
   const {
     artistId, name, songs, eventDate, venueName,
   } = songsObject;
-  const { displayName, accessToken } = JSON.parse(localStorage.getItem('setlist-generator-details'));
+  const { displayName, accessToken, refreshToken } = JSON.parse(localStorage.getItem('setlist-generator-details'));
   return {
     artistId,
     name,
@@ -45,6 +45,7 @@ function createRequest(songsObject) {
     venueName,
     accessToken,
     userId: displayName,
+    refreshToken,
   };
 }
 
